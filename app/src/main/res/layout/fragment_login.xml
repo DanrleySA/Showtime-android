@@ -1,20 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="danrleysa.com.showtime.controller.Activity.CadastrarUsuario">
+    tools:context="danrleysa.com.showtime.controller.Fragment.LoginFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nome" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,29 +13,19 @@
         android:text="Email" />
 
     <EditText
+        android:id="@+id/LoginEdtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Senha" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Digite novamente a senha" />
-
-    <EditText
+        android:id="@+id/LoginEdtSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -52,18 +33,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
 
         <Button
+            android:id="@+id/LoginBtnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="save"
-            android:text="Registrar" />
+            android:layout_weight="1"
+            android:text="Entrar" />
 
         <Button
+            android:id="@+id/LoginBtnRegistrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="cancel"
-            android:text="Cancelar" />
+            android:layout_weight="1"
+            android:onClick="onClickButton2"
+            android:text="Registre-se" />
     </LinearLayout>
+
 </LinearLayout>

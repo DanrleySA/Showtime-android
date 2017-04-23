@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="danrleysa.com.showtime.controller.Activity.CadastrarUsuario">
+    tools:context="danrleysa.com.showtime.controller.Fragment.CadUserFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nome" />
 
     <EditText
+        android:id="@+id/CadUserEdtNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -22,6 +22,7 @@
         android:text="Email" />
 
     <EditText
+        android:id="@+id/CadUserEdtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -34,6 +35,7 @@
         android:text="Senha" />
 
     <EditText
+        android:id="@+id/CadUserEdtSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -42,9 +44,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Digite novamente a senha" />
+        android:text="Confirmar senha" />
 
     <EditText
+        android:id="@+id/CadUserEdtSenhaConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -55,15 +58,16 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/CadUserBtnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="save"
             android:text="Registrar" />
 
         <Button
+            android:id="@+id/CadUserBtnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="cancel"
             android:text="Cancelar" />
     </LinearLayout>
+
 </LinearLayout>

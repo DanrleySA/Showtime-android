@@ -1,4 +1,4 @@
-package danrleysa.com.showtime.controller;
+package danrleysa.com.showtime.controller.Activity;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;

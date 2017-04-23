@@ -1,4 +1,4 @@
-package danrleysa.com.showtime.controller;
+package danrleysa.com.showtime.controller.Activity;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 
 import danrleysa.com.showtime.R;
 import danrleysa.com.showtime.dao.UsuarioDAO;
