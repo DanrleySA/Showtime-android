@@ -1,10 +1,12 @@
 package danrleysa.com.showtime.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Danrley on 22/04/2017.
  */
 
-public class Inscricao {
+public class Inscricao implements Serializable{
 
     private Integer idInscricao;
     private Evento evento;

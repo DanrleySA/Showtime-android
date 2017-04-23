@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBase extends SQLiteOpenHelper {
 
     public DataBase(Context context) {
-        super(context, "EVENTOS", null, 1);
+        super(context, "SHOWTIME_DB", null, 1);
     }
 
     @Override

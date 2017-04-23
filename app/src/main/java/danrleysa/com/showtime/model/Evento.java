@@ -1,12 +1,13 @@
 package danrleysa.com.showtime.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Danrley on 22/04/2017.
  */
 
-public class Evento {
+public class Evento implements Serializable{
 
     private Long idEvento;
     private String descricao;

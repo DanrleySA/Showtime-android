@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ArrayAdapter;
 
+import danrleysa.com.showtime.model.Evento;
 import danrleysa.com.showtime.model.Usuario;
 
 /**
@@ -22,14 +23,14 @@ public class UsuarioDAO {
 
     public Long save(Usuario usuario) {
         ContentValues values = new ContentValues();
-        values.put("NOME", usuario.getNome());
-        values.put("EMAIL", usuario.getEmail());
-        values.put("SENHA", usuario.getSenha());
+        values.put("nome", usuario.getNome());
+        values.put("email", usuario.getEmail());
+        values.put("senha", usuario.getSenha());
         return con.insertOrThrow("USUARIO", null, values);
     }
 
     public Usuario getUserByEmailAndSenha(String email, String senha) {
-        Cursor cursor = con.rawQuery(" SELECT * FROM USUARIO WHERE EMAIL =? AND SENHA =? ", new String[]{String.valueOf(email), String.valueOf(senha)});
+        Cursor cursor = con.rawQuery(" SELECT * FROM USUARIO WHERE email =? AND senha =? ", new String[]{String.valueOf(email), String.valueOf(senha)});
         if (cursor.getCount() != 1){
             return null;
         }else{
@@ -39,6 +40,7 @@ public class UsuarioDAO {
             usuario.setNome(cursor.getString(1));
             usuario.setEmail(cursor.getString(2));
             usuario.setSenha(cursor.getString(3));
+            System.out.println(usuario.getNome());
             return usuario;
         }
     }
@@ -56,4 +58,5 @@ public class UsuarioDAO {
         }
         return adpUsuarios;
     }
+
 }

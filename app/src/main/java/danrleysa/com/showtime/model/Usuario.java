@@ -1,15 +1,30 @@
 package danrleysa.com.showtime.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by Danrley on 22/04/2017.
  */
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private Integer idUsuario;
     private String nome;
     private String email;
     private String senha;
+
+    public Usuario() {
+
+    }
+
+    public Usuario(String nome, String email, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -58,4 +73,5 @@ public class Usuario {
     public int hashCode() {
         return idUsuario.hashCode();
     }
+
 }
