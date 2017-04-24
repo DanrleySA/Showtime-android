@@ -16,6 +16,18 @@ public class Evento implements Serializable{
     private Integer lotacao;
     private String local;
 
+    public Evento() {
+    }
+
+    public Evento(Long idEvento, Usuario organizador, String descricao, String local, Date data, Integer lotacao) {
+        this.idEvento = idEvento;
+        this.descricao = descricao;
+        this.organizador = organizador;
+        this.data = data;
+        this.lotacao = lotacao;
+        this.local = local;
+    }
+
     public Long getIdEvento() {
         return idEvento;
     }
