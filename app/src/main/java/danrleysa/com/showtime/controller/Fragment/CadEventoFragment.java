@@ -26,6 +26,7 @@ public class CadEventoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cad_evento, container, false);
 
+
         return view;
     }
 
