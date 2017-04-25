@@ -23,6 +23,9 @@ public class DataBase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS INSCRICAO");
+        db.execSQL("DROP TABLE IF EXISTS EVENTO");
+        db.execSQL("DROP TABLE IF EXISTS USUARIO");
+        onCreate(db);
     }
 }
