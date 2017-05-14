@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import danrleysa.com.showtime.R;
-import danrleysa.com.showtime.controller.Activity.Home;
 import danrleysa.com.showtime.controller.Activity.Principal;
 import danrleysa.com.showtime.dao.UsuarioDAO;
 import danrleysa.com.showtime.database.DataBase;

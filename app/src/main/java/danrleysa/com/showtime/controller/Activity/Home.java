@@ -41,8 +41,6 @@ public class Home extends AppCompatActivity {
             adpUsers = usuarioDAO.getUsuarios(this);
             listaUsers.setAdapter(adpUsers);
 
-
-
         } catch (SQLiteException ex) {
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setMessage("Erro ao criar o banco: " + ex.getMessage());
