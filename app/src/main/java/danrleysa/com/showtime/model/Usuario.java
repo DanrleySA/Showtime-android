@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
 
-    private Integer idUsuario;
+    private Long idUsuario;
     private String nome;
     private String email;
     private String senha;
@@ -26,11 +26,11 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public Integer getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 

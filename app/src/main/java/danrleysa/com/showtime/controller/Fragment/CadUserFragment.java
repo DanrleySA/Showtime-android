@@ -2,7 +2,6 @@ package danrleysa.com.showtime.controller.Fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -15,11 +14,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import danrleysa.com.showtime.R;
-import danrleysa.com.showtime.controller.Activity.Principal;
 import danrleysa.com.showtime.dao.UsuarioDAO;
 import danrleysa.com.showtime.database.DataBase;
 import danrleysa.com.showtime.model.Usuario;
+import danrleysa.com.showtime.retrofit.RetrofitInicializador;
 import danrleysa.com.showtime.util.Utils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -85,14 +87,27 @@ public class CadUserFragment extends Fragment {
                         }else{
                             try{
                                 Usuario usuario = new Usuario(nomeTxt, emailTxt, senhaTxt);
-                                if (usuarioDAO.save(usuario) == -1){
-                                    Toast.makeText(context, "Erri ao registrar-se ", Toast.LENGTH_LONG).show();
-                                }else{
-                                    Intent it = new Intent(context, Principal.class);
-                                    getActivity().finish();
-                                    it.putExtra("usuario", usuario);
-                                    startActivity(it);
-                                }
+                                Call save = new RetrofitInicializador().getUsuarioService().merge(usuario);
+                                save.enqueue(new Callback() {
+                                    @Override
+                                    public void onResponse(Call call, Response response) {
+                                        Toast.makeText(getActivity().getApplicationContext(), "salvou " + response.message(), Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call call, Throwable t) {
+                                        Toast.makeText(getActivity().getApplicationContext(), "deu ruim" + t.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+//                                if (usuarioDAO.save(usuario) == -1){
+//                                    Toast.makeText(context, "Erri ao registrar-se ", Toast.LENGTH_LONG).show();
+//                                }else{
+//                                    Intent it = new Intent(context, Principal.class);
+//                                    getActivity().finish();
+//                                    it.putExtra("usuario", usuario);
+//                                    startActivity(it);
+//                                }
                             }catch (SQLiteException e) {
                                 e.printStackTrace();
                                 Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -106,6 +121,7 @@ public class CadUserFragment extends Fragment {
             }
         });
 
+
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,5 +133,28 @@ public class CadUserFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Call danrley = new RetrofitInicializador().getUsuarioService().getById(2L);
+        danrley.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()){
+                    Usuario usuario = (Usuario) response.body();
+                    Toast.makeText(getActivity().getApplicationContext(), usuario.getNome(), Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Deu errado", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+
     }
 }

@@ -36,7 +36,7 @@ public class UsuarioDAO {
         }else{
             cursor.moveToFirst();
             Usuario usuario = new Usuario();
-            usuario.setIdUsuario(cursor.getInt(0));
+            usuario.setIdUsuario(cursor.getLong(0));
             usuario.setNome(cursor.getString(1));
             usuario.setEmail(cursor.getString(2));
             usuario.setSenha(cursor.getString(3));

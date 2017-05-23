@@ -12,18 +12,18 @@ public class Evento implements Serializable{
     private Long idEvento;
     private String descricao;
     private Usuario organizador;
-    private Date data;
+    private Date dataHora;
     private Integer lotacao;
     private String local;
 
     public Evento() {
     }
 
-    public Evento(Long idEvento, Usuario organizador, String descricao, String local, Date data, Integer lotacao) {
+    public Evento(Long idEvento, Usuario organizador, String descricao, String local, Date dataHora, Integer lotacao) {
         this.idEvento = idEvento;
         this.descricao = descricao;
         this.organizador = organizador;
-        this.data = data;
+        this.dataHora = dataHora;
         this.lotacao = lotacao;
         this.local = local;
     }
@@ -52,12 +52,12 @@ public class Evento implements Serializable{
         this.organizador = organizador;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDataHora() {
+        return dataHora;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
     }
 
     public Integer getLotacao() {
