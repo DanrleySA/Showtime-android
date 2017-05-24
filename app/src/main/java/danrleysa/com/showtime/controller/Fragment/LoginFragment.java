@@ -19,7 +19,11 @@ import danrleysa.com.showtime.controller.Activity.Principal;
 import danrleysa.com.showtime.dao.UsuarioDAO;
 import danrleysa.com.showtime.database.DataBase;
 import danrleysa.com.showtime.model.Usuario;
+import danrleysa.com.showtime.retrofit.RetrofitInicializador;
 import danrleysa.com.showtime.util.Utils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -78,14 +82,34 @@ public class LoginFragment extends Fragment {
                 } else {
                     if (Utils.isValidEmail(emailTxt)) {
                         try {
-                            Usuario usuario = usuarioDAO.getUserByEmailAndSenha(emailTxt, senhaTxt);
+                            Call login = new RetrofitInicializador().getUsuarioService().getByPorEmailAndSenha(emailTxt, senhaTxt);
+                            login.enqueue(new Callback() {
+                                @Override
+                                public void onResponse(Call call, Response response) {
+                                    Usuario usuario = (Usuario) response.body();
+                                    if (usuario != null){
+                                        Intent intent = new Intent(context, Principal.class);
+                                        intent.putExtra("usuario", usuario);
+                                        startActivity(intent);
+                                    }else{
+                                        Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call call, Throwable t) {
+
+                                }
+                            });
+
+                            /*Usuario usuario = usuarioDAO.getUserByEmailAndSenha(emailTxt, senhaTxt);
                             if (usuario != null) {
                                 Intent intent = new Intent(context, Principal.class);
                                 intent.putExtra("usuario", usuario);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
                         } catch (SQLiteException e) {
                             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                             e.printStackTrace();

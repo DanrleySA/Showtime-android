@@ -27,3 +27,4 @@ public interface UsuarioService {
     @GET("usuario/idEvento/{idEvento}")
     Call<List<Usuario>> listarInscritos(@Path("idEvento") Long idEvento);
 }
+

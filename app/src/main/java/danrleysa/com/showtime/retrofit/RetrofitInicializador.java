@@ -14,7 +14,7 @@ public class RetrofitInicializador {
 
     public RetrofitInicializador(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.16.42.192:8080/showtimews/rest/")
+                .baseUrl("http://192.168.43.240:8080/showtimews/rest/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
     }
 
