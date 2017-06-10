@@ -91,4 +91,16 @@ public class Evento implements Serializable{
     public int hashCode() {
         return idEvento.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Evento{" +
+                "idEvento=" + idEvento +
+                ", descricao='" + descricao + '\'' +
+                ", organizador=" + organizador +
+                ", dataHora=" + dataHora +
+                ", lotacao=" + lotacao +
+                ", local='" + local + '\'' +
+                '}';
+    }
 }

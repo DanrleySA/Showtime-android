@@ -12,14 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import danrleysa.com.showtime.R;
-import danrleysa.com.showtime.dao.UsuarioDAO;
-import danrleysa.com.showtime.database.DataBase;
 import danrleysa.com.showtime.model.Usuario;
 import danrleysa.com.showtime.util.Utils;
 
 public class CadastrarUsuario extends AppCompatActivity {
 
-    private DataBase dataBase;
     private SQLiteDatabase con;
     private Button btnSave;
     private Button btnCancel;
@@ -27,7 +24,6 @@ public class CadastrarUsuario extends AppCompatActivity {
     private EditText email;
     private EditText senha;
     private EditText senhaConfirm;
-    private UsuarioDAO usuarioDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +39,6 @@ public class CadastrarUsuario extends AppCompatActivity {
 
         email.setText(getIntent().getStringExtra("email"));
 
-        try {
-            dataBase = new DataBase(this);
-            con = dataBase.getWritableDatabase();
-            usuarioDAO = new UsuarioDAO(con);
-
-        } catch (SQLiteException ex) {
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setMessage("Erro ao criar o banco: " + ex.getMessage());
-            dlg.setNeutralButton("Ok", null);
-            dlg.show();
-            ex.printStackTrace();
-        }
     }
 
     public void save(View view) {
@@ -74,21 +58,7 @@ public class CadastrarUsuario extends AppCompatActivity {
                 if (!senhaTxt.equals(senhaConfirmTxt)){
                     Toast.makeText(this, "Senhas não correspondem", Toast.LENGTH_SHORT).show();
                 }else{
-                    try{
-                        if (usuarioDAO.save(new Usuario(nomeTxt, emailTxt, senhaTxt)) == -1){
-                            Toast.makeText(this, "Deu erro", Toast.LENGTH_LONG).show();
-                        }else{
-                            finish();
-                            Intent it = new Intent(this, Home.class);
-                            startActivity(it);
-                        }
-                    }catch (SQLiteException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        Toast.makeText(this, e.getMessage() + "@@@@@" + e.getCause(), Toast.LENGTH_LONG).show();
-                    }
+
                 }
             }
         }

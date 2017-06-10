@@ -1,7 +1,5 @@
 package danrleysa.com.showtime.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.io.Serializable;
 
@@ -17,7 +15,6 @@ public class Usuario implements Serializable {
     private String senha;
 
     public Usuario() {
-
     }
 
     public Usuario(String nome, String email, String senha) {
@@ -74,4 +71,13 @@ public class Usuario implements Serializable {
         return idUsuario.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
+    }
 }

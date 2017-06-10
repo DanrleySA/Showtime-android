@@ -8,31 +8,16 @@ import java.io.Serializable;
 
 public class Inscricao implements Serializable{
 
-    private Integer idInscricao;
+    private Long idInscricao;
     private Evento evento;
     private Usuario usuario;
 
-    public Integer getIdInscricao() {
-        return idInscricao;
+    public Inscricao() {
     }
 
-    public void setIdInscricao(Integer idInscricao) {
+    public Inscricao(Long idInscricao, Evento evento, Usuario usuario) {
         this.idInscricao = idInscricao;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
         this.evento = evento;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -52,4 +37,12 @@ public class Inscricao implements Serializable{
         return idInscricao.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "Inscricao{" +
+                "idInscricao=" + idInscricao +
+                ", evento=" + evento +
+                ", usuario=" + usuario +
+                '}';
+    }
 }

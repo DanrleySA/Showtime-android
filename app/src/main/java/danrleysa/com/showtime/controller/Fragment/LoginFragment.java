@@ -4,7 +4,6 @@ package danrleysa.com.showtime.controller.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,12 +14,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import danrleysa.com.showtime.R;
+import danrleysa.com.showtime.bo.UsuarioBO;
 import danrleysa.com.showtime.controller.Activity.Principal;
-import danrleysa.com.showtime.dao.UsuarioDAO;
-import danrleysa.com.showtime.database.DataBase;
 import danrleysa.com.showtime.model.Usuario;
 import danrleysa.com.showtime.retrofit.RetrofitInicializador;
-import danrleysa.com.showtime.util.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,18 +28,15 @@ import retrofit2.Response;
  */
 public class LoginFragment extends Fragment {
 
-    private DataBase dataBase;
     private SQLiteDatabase con;
     private EditText email;
     private EditText senha;
-    private UsuarioDAO usuarioDAO;
     private Context context;
     private Button btnLogin;
     private Button btnRegistrar;
 
 
     public LoginFragment() {
-        // Required empty public constructor
     }
 
 
@@ -57,13 +51,6 @@ public class LoginFragment extends Fragment {
         email = (EditText) view.findViewById(R.id.LoginEdtEmail);
         senha = (EditText) view.findViewById(R.id.LoginEdtSenha);
 
-        try {
-            dataBase = new DataBase(context);
-            con = dataBase.getWritableDatabase();
-            usuarioDAO = new UsuarioDAO(con);
-        }catch (SQLiteException e){
-            Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-        }
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,51 +62,26 @@ public class LoginFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailTxt = email.getText().toString();
-                String senhaTxt = senha.getText().toString();
-                if (emailTxt.isEmpty() || senhaTxt.isEmpty()) {
-                    Toast.makeText(context, "Preenha todos os campos!", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (Utils.isValidEmail(emailTxt)) {
-                        try {
-                            Call login = new RetrofitInicializador().getUsuarioService().getByPorEmailAndSenha(emailTxt, senhaTxt);
-                            login.enqueue(new Callback() {
-                                @Override
-                                public void onResponse(Call call, Response response) {
-                                    Usuario usuario = (Usuario) response.body();
-                                    if (usuario != null){
-                                        Intent intent = new Intent(context, Principal.class);
-                                        intent.putExtra("usuario", usuario);
-                                        startActivity(intent);
-                                    }else{
-                                        Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call call, Throwable t) {
-
-                                }
-                            });
-
-                            /*Usuario usuario = usuarioDAO.getUserByEmailAndSenha(emailTxt, senhaTxt);
-                            if (usuario != null) {
+                if (UsuarioBO.getInstance().validaCampos(email, senha).equals("")) {
+                    Call login = new RetrofitInicializador().getUsuarioService().getByPorEmailAndSenha
+                            (email.getText().toString(), senha.getText().toString());
+                    login.enqueue(new Callback() {
+                        @Override
+                        public void onResponse(Call call, Response response) {
+                            if (response.body() != null) {
                                 Intent intent = new Intent(context, Principal.class);
-                                intent.putExtra("usuario", usuario);
+                                intent.putExtra("usuario", (Usuario) response.body());
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
-                            }*/
-                        } catch (SQLiteException e) {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
+                            }
                         }
-                    } else {
-                        Toast.makeText(context, "Email inválido", Toast.LENGTH_SHORT).show();
-                    }
+
+                        @Override
+                        public void onFailure(Call call, Throwable t) {
+
+                        }
+                    });
                 }
             }
         });
