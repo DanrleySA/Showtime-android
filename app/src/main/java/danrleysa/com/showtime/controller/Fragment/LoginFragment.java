@@ -40,6 +40,7 @@ public class LoginFragment extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
@@ -51,6 +52,9 @@ public class LoginFragment extends Fragment {
         email = (EditText) view.findViewById(R.id.LoginEdtEmail);
         senha = (EditText) view.findViewById(R.id.LoginEdtSenha);
 
+        Bundle bundle = getArguments();
+
+        email.setText(bundle != null ? getArguments().getString("email") : "");
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +76,7 @@ public class LoginFragment extends Fragment {
                                 Intent intent = new Intent(context, Principal.class);
                                 intent.putExtra("usuario", (Usuario) response.body());
                                 startActivity(intent);
+                                getActivity().finish();
                             } else {
                                 Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
                             }

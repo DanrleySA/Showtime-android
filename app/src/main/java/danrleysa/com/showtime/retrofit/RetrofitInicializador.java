@@ -1,5 +1,6 @@
 package danrleysa.com.showtime.retrofit;
 
+import danrleysa.com.showtime.service.EventoService;
 import danrleysa.com.showtime.service.UsuarioService;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,5 +21,9 @@ public class RetrofitInicializador {
 
     public UsuarioService getUsuarioService() {
         return retrofit.create(UsuarioService.class);
+    }
+
+    public EventoService getEventoService() {
+        return retrofit.create(EventoService.class);
     }
 }

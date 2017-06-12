@@ -5,12 +5,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 import danrleysa.com.showtime.R;
 import danrleysa.com.showtime.bo.UsuarioBO;
@@ -54,15 +57,24 @@ public class CadUserFragment extends Fragment {
             public void onClick(View v) {
                 String validaCampos = UsuarioBO.getInstance().validaCampos(nome, email, senha, senhaConfirm);
                 if (validaCampos.equals("")) {
-                    Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(), senha.getText().toString());
+                    final Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(), senha.getText().toString());
                     Call save = new RetrofitInicializador().getUsuarioService().merge(usuario);
                     save.enqueue(new Callback() {
                         @Override
                         public void onResponse(Call call, Response response) {
                             if (response.isSuccessful()) {
-                                Toast.makeText(getActivity().getApplicationContext(), "" + response.code(), Toast.LENGTH_LONG).show();
+                                Bundle email = new Bundle();
+                                email.putString("email", usuario.getEmail());
+                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                Fragment f = new LoginFragment();
+                                f.setArguments(email);
+                                fragmentTransaction.replace(R.id.frame_container_login, f).commit();
                             } else {
-                                Toast.makeText(getActivity().getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
+                                try {
+                                    Toast.makeText(getActivity().getApplicationContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
 

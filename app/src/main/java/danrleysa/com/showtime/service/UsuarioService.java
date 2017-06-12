@@ -19,7 +19,7 @@ public interface UsuarioService {
     Call<Usuario> getById(@Path("id") Long id);
 
     @POST("usuario")
-    Call<Void> merge(@Body Usuario usuario);
+    Call<String> merge(@Body Usuario usuario);
 
     @GET("usuario/{email}/{senha}")
     Call<Usuario> getByPorEmailAndSenha(@Path("email") String email, @Path("senha") String senha);
