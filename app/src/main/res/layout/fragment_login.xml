@@ -10,7 +10,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email" />
+        android:text="Email"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/LoginEdtEmail"
@@ -22,7 +23,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Senha" />
+        android:text="Senha"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/LoginEdtSenha"
@@ -41,8 +43,9 @@
             android:id="@+id/LoginBtnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Entrar" />
+            android:layout_weight="1.59"
+            android:text="Entrar"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/LoginBtnRegistrar"
@@ -50,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClickButton2"
-            android:text="Registre-se" />
+            android:text="Registre-se"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>

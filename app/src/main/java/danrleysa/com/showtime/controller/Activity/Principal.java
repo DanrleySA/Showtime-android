@@ -1,5 +1,6 @@
 package danrleysa.com.showtime.controller.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,9 @@ import android.view.MenuItem;
 
 import danrleysa.com.showtime.R;
 import danrleysa.com.showtime.controller.Fragment.CadEventoFragment;
+import danrleysa.com.showtime.controller.Fragment.ListEventosFragment;
+import danrleysa.com.showtime.controller.Fragment.LoginFragment;
+import danrleysa.com.showtime.controller.Fragment.MeusEventosInscritos;
 
 public class Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +47,10 @@ public class Principal extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.frameContainerPrincipal, new ListEventosFragment()).commit();
+        }
 
 
     }
@@ -86,17 +94,19 @@ public class Principal extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameContainerPrincipal, new CadEventoFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameContainerPrincipal, new ListEventosFragment()).commit();
         } else if (id == R.id.nav_gallery) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameContainerPrincipal, new MeusEventosInscritos()).commit();
         } else if (id == R.id.nav_slideshow) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameContainerPrincipal, new CadEventoFragment()).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            Intent intent = new Intent(this, Login.class);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

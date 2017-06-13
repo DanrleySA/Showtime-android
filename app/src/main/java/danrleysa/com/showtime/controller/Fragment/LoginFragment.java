@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call call, Throwable t) {
-
+                            Toast.makeText(context, "Erro. Tente novamente", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

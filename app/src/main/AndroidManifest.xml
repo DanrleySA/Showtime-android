@@ -21,9 +21,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.Activity.CadastrarUsuario"
-            android:label="Registre-se" />
-        <activity
             android:name=".controller.Activity.Home"
             android:label="Home" />
         <activity

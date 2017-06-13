@@ -33,6 +33,8 @@ public class UsuarioBO implements Serializable {
         } else {
             if (!Utils.isValidEmail(emailTxt)) {
                 return "Email inválido";
+            } else if (senhaTxt.length() < 6) {
+                return "A senha deve ter pelo menos 6 caracteres";
             } else if (!senhaTxt.equals(senhaConfirmTxt)) {
                 return "Senhas não correspondem";
             } else {
@@ -50,6 +52,8 @@ public class UsuarioBO implements Serializable {
         } else {
             if (!Utils.isValidEmail(emailTxt)) {
                 return "Email inválido";
+            } else if (senhaTxt.length() < 6) {
+                return "A senha contém no mínimo 6 caracteres";
             } else {
                 return "";
             }

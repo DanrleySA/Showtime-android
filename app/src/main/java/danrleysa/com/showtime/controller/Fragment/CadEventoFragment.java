@@ -43,6 +43,7 @@ public class CadEventoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cad_evento, container, false);
 
+
         Button btnTime = (Button) view.findViewById(R.id.CadEventoBtnTime);
         Button btnDate = (Button) view.findViewById(R.id.CadEventoBtnData);
         Button btnCancel = (Button) view.findViewById(R.id.CadEventoBtnCancel);
@@ -58,15 +59,17 @@ public class CadEventoFragment extends Fragment {
                 final Calendar horaCalendar = Calendar.getInstance();
                 hora = horaCalendar.get(Calendar.HOUR_OF_DAY);
                 minuto = horaCalendar.get(Calendar.MINUTE);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity().getApplicationContext(), new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        dataHora.setHours(hora);
+                        dataHora.setHours(hourOfDay);
                         dataHora.setMinutes(minute);
                     }
                 }, hora, minuto, true);
+                timePickerDialog.show();
             }
         });
+
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,23 +78,25 @@ public class CadEventoFragment extends Fragment {
                 mes = dataCalendar.get(Calendar.MONTH);
                 dia = dataCalendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity().getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        dataHora.setYear(ano);
-                        dataHora.setMonth(mes);
-                        dataHora.setDate(dia);
+                        dataHora.setYear(year);
+                        dataHora.setMonth(month);
+                        dataHora.setDate(dayOfMonth);
                     }
                 }, ano, mes, dia);
+                datePickerDialog.show();
             }
         });
+
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frameContainerPrincipal, new LoginFragment())
+                        .replace(R.id.frameContainerPrincipal, new ListEventosFragment())
                         .commit();
             }
         });
@@ -104,21 +109,32 @@ public class CadEventoFragment extends Fragment {
                 evento.setDescricao(descricao.getText().toString());
                 evento.setLotacao(50);
                 evento.setDataHora(dataHora);
+
                 if (evento.getDataHora() == null) {
                     Toast.makeText(getActivity(), "Selecione a data e o horário!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Call save = new RetrofitInicializador().getEventoService().merge(evento);
-                    save.enqueue(new Callback() {
-                        @Override
-                        public void onResponse(Call call, Response response) {
+                    if (evento.getDataHora().before(Calendar.getInstance().getTime())) {
+                        Toast.makeText(getActivity(), "A data não pode ser antes da data atual", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Call save = new RetrofitInicializador().getEventoService().merge(evento);
+                        save.enqueue(new Callback() {
+                            @Override
+                            public void onResponse(Call call, Response response) {
+                                if (response.isSuccessful()) {
+                                    getActivity()
+                                            .getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.frameContainerPrincipal, new ListEventosFragment())
+                                            .commit();
+                                }
+                            }
 
-                        }
+                            @Override
+                            public void onFailure(Call call, Throwable t) {
 
-                        @Override
-                        public void onFailure(Call call, Throwable t) {
-
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
         });
